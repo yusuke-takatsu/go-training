@@ -29,6 +29,9 @@ up:
 down:
 	docker compose down
 
+ps:
+	docker compose ps
+
 redis:
 	docker exec -it benesse-mcm-api-server-redis redis-cli
 
