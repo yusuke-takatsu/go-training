@@ -1,0 +1,4 @@
+development:
+  driver: mysql
+  open: ${DB_USERNAME}:${DB_PASSWORD}@tcp(127.0.0.1:3306)/${DB_DATABASE}
+  migrations_dir: migrations
