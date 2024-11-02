@@ -1,7 +1,5 @@
 name: debug test
-on:
-  pull_request:
-    paths: ['**/*.go']
+on: push
 jobs:
   test:
     runs-on: ubuntu-latest
