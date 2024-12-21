@@ -24,7 +24,10 @@ install:
 	make up
 
 up:
-	USER_NAME=$(shell id -nu) USER_ID=$(shell id -u) GROUP_NAME=$(shell id -ng) GROUP_ID=$(shell id -g) OS_NAME=$(OS_NAME) docker compose up -d
+	USER_NAME=$(shell id -nu) USER_ID=$(shell id -u) GROUP_NAME=$(shell id -ng) GROUP_ID=$(shell id -g) OS_NAME=$(OS_NAME) docker compose up
+
+stop:
+	docker compose stop
 
 down:
 	docker compose down
