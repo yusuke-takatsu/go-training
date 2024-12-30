@@ -6,4 +6,5 @@ import (
 
 type Repository interface {
 	Save(user *entity.User) error
+	ExistsEmail(email string) (bool, error)
 }

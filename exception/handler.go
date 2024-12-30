@@ -30,6 +30,8 @@ func Handler(w http.ResponseWriter, err error) {
 		statusCode = http.StatusNotFound
 	case Invalid:
 		statusCode = http.StatusUnprocessableEntity
+	case Conflict:
+		statusCode = http.StatusConflict
 	default:
 		statusCode = http.StatusInternalServerError
 	}
