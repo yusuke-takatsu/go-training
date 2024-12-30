@@ -8,13 +8,28 @@ import (
 	"github.com/yusuke-takatsu/go-training/interface/user/router"
 	"github.com/yusuke-takatsu/go-training/middleware"
 	"github.com/yusuke-takatsu/go-training/service/user/usecase"
+	"io"
 	"log"
 	"net/http"
 	"os"
 )
 
-func main() {
+func init() {
 	loadEnv()
+	if os.Getenv("APP_ENV") == "production" {
+		return
+	}
+
+	f, err := os.OpenFile("application.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatalf("failed opening file: %s", err)
+	}
+
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+	log.SetOutput(io.MultiWriter(os.Stdout, f))
+}
+
+func main() {
 	db, err := database.InitDB()
 	if err != nil {
 		log.Fatal(err)
