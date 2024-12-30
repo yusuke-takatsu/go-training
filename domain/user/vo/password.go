@@ -3,6 +3,7 @@ package vo
 import (
 	"errors"
 	"golang.org/x/crypto/bcrypt"
+	"regexp"
 )
 
 type Password struct {
@@ -27,20 +28,20 @@ func NewPassword(password string) (Password, error) {
 }
 
 func isValidPassword(password string) bool {
-	//alphanumericRegex := regexp.MustCompile(`^[a-zA-Z0-9]+$`)
-	//if matched := alphanumericRegex.MatchString(password); !matched {
-	//	return false
-	//}
+	alphanumericRegex := regexp.MustCompile(`^[a-zA-Z0-9]+$`)
+	if matched := alphanumericRegex.MatchString(password); !matched {
+		return false
+	}
 
-	//uppercaseRegex := regexp.MustCompile(`[A-Z]`)
-	//if matched := uppercaseRegex.MatchString(password); !matched {
-	//	return false
-	//}
-	//
-	//numberRegex := regexp.MustCompile(`[0-9]`)
-	//if matched := numberRegex.MatchString(password); !matched {
-	//	return false
-	//}
+	uppercaseRegex := regexp.MustCompile(`[A-Z]`)
+	if matched := uppercaseRegex.MatchString(password); !matched {
+		return false
+	}
+
+	numberRegex := regexp.MustCompile(`[0-9]`)
+	if matched := numberRegex.MatchString(password); !matched {
+		return false
+	}
 
 	return true
 }
