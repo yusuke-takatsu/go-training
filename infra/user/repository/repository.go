@@ -29,3 +29,15 @@ func (r *userRepository) Save(user *entity.User) error {
 
 	return err
 }
+
+func (r *userRepository) ExistsEmail(email string) (bool, error) {
+	query := `SELECT EXISTS(SELECT * FROM users WHERE email = ?)`
+
+	var exists bool
+	err := r.db.QueryRow(query, email).Scan(&exists)
+	if err != nil {
+		return false, err
+	}
+
+	return exists, nil
+}
