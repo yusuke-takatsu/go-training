@@ -7,7 +7,7 @@ const (
 
 	NotFound     ErrCode = "S001"
 	InsertFailed ErrCode = "S002"
-	InValid      ErrCode = "S003"
+	Invalid      ErrCode = "S003"
 )
 
 func (code ErrCode) Wrap(err error, message string) *AppError {

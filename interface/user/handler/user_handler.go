@@ -35,7 +35,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := validator.New().Struct(req); err != nil {
-		exception.Handler(w, err)
+		exception.Handler(w, exception.Invalid.Wrap(err, err.Error()))
 		return
 	}
 
@@ -49,6 +49,8 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(&RegisterUserResponse{
 		Message: "ユーザー登録が完了しました。",
 	})

@@ -6,6 +6,11 @@ type AppError struct {
 	Err     error
 }
 
+type ErrorResponse struct {
+	Code    ErrCode `json:"code"`
+	Message string  `json:"message"`
+}
+
 func (e *AppError) Unwrap() error {
 	return e.Err
 }

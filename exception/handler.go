@@ -21,12 +21,16 @@ func Handler(w http.ResponseWriter, err error) {
 	switch appErr.ErrCode {
 	case NotFound:
 		statusCode = http.StatusNotFound
-	case InValid:
+	case Invalid:
 		statusCode = http.StatusUnprocessableEntity
 	default:
 		statusCode = http.StatusInternalServerError
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(statusCode)
-	json.NewEncoder(w).Encode(appErr)
+	json.NewEncoder(w).Encode(ErrorResponse{
+		Code:    appErr.ErrCode,
+		Message: appErr.Message,
+	})
 }

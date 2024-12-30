@@ -19,12 +19,12 @@ func NewUserUseCase(repo repository.Repository) *UseCase {
 func (s *UseCase) Register(input dto.RegisterInput) error {
 	emailVo, err := vo.NewEmail(input.Email)
 	if err != nil {
-		return exception.InValid.Wrap(err, err.Error())
+		return exception.Invalid.Wrap(err, err.Error())
 	}
 
 	passwordVo, err := vo.NewPassword(input.Password)
 	if err != nil {
-		return exception.InValid.Wrap(err, err.Error())
+		return exception.Invalid.Wrap(err, err.Error())
 	}
 
 	userEntity := entity.CreateUser(emailVo, passwordVo, input.Image)
