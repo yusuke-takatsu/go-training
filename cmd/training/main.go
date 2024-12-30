@@ -6,6 +6,7 @@ import (
 	"github.com/yusuke-takatsu/go-training/infra/user/repository"
 	"github.com/yusuke-takatsu/go-training/interface/user/handler"
 	"github.com/yusuke-takatsu/go-training/interface/user/router"
+	"github.com/yusuke-takatsu/go-training/middleware"
 	"github.com/yusuke-takatsu/go-training/service/user/usecase"
 	"log"
 	"net/http"
@@ -26,6 +27,7 @@ func main() {
 	userHandler := handler.NewHandler(userService)
 
 	r := router.NewRouter(userHandler)
+	r.Use(middleware.Logging)
 
 	log.Println("Starting server port is ", os.Getenv("APP_PORT"))
 	if err := http.ListenAndServe(":"+os.Getenv("APP_PORT"), r); err != nil {

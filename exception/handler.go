@@ -3,18 +3,25 @@ package exception
 import (
 	"encoding/json"
 	"errors"
+	"log"
 	"net/http"
 )
 
 func Handler(w http.ResponseWriter, err error) {
 	var appErr *AppError
 	if !errors.As(err, &appErr) {
+		log.Printf("Unhandled error: %v", err)
 		appErr = &AppError{
 			ErrCode: Unknown,
 			Message: err.Error(),
 			Err:     err,
 		}
 	}
+	log.Printf("AppError occurred: Code=%s, Message=%s, Error=%v",
+		appErr.ErrCode,
+		appErr.Message,
+		appErr.Err,
+	)
 
 	var statusCode int
 
